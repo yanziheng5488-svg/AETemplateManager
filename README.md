@@ -4,12 +4,9 @@ Windows 优先的 After Effects CEP 面板，用于浏览映射网络驱动器�
 
 ## 产品介绍
 
-<video controls preload="metadata" width="800">
-  <source src="https://raw.githubusercontent.com/yanziheng5488-svg/AETemplateManager/main/assets/ae-fn-template-manager-intro.mp4" type="video/mp4">
-  您的浏览器不支持视频播放。请[下载产品介绍视频](assets/ae-fn-template-manager-intro.mp4)。
-</video>
+[![AE FN 模板管理产品介绍](assets/ae-fn-template-manager-intro.gif)](assets/ae-fn-template-manager-intro.mp4)
 
-[下载产品介绍视频](assets/ae-fn-template-manager-intro.mp4)
+[下载完整产品介绍视频（MP4）](assets/ae-fn-template-manager-intro.mp4)
 
 ## 当前实现
 
