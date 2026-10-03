@@ -1,0 +1,14 @@
+{
+  "name": "ae-fn-template-manager",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Windows-first Adobe After Effects CEP template manager",
+  "scripts": {
+    "test": "node --test test/*.test.js",
+    "test:watch": "node --test --watch test/*.test.js",
+    "validate": "npm test"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

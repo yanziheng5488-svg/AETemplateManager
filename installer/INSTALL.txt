@@ -1,0 +1,38 @@
+AE FN 模板管理 CEP 插件 - Windows 安装说明
+
+适用范围：After Effects 2024 或更新版本，Windows。
+
+安装步骤
+1. 将 ZIP 解压到本地目录。
+2. 在解压目录打开 PowerShell。
+3. 运行：
+   .\install.ps1
+4. 如果目标电脑尚未启用对应 CSXS runtime 的调试模式，并且你接受下面的安全影响，再运行：
+   .\install.ps1 -EnableUnsignedExtensions
+5. 关闭并重新打开 After Effects，在“窗口 > 扩展”中打开“AE FN 模板管理”。
+6. 在插件设置里配置模板库根目录和项目库根目录。
+
+预览操作：模板卡片没有 JPG 封面时会显示视频首帧。双击预览区域打开大播放器，拖动或播放到目标画面后点击“使用当前帧作为封面”，插件会在视频同目录写入或更新 JPG。
+
+RaiDrive/WebDAV 说明：部分 WebDAV 映射盘不支持 Node 的递归建目录或目录重命名。插件会改为逐层创建目录，并在重命名被拒绝时自动逐文件提交到最终目录；这会产生额外传输，速度可能较慢。若 WebDAV 仍拒绝写入，请改用本地磁盘或 SMB 映射共享作为项目库。
+
+安全说明
+此内部 ZIP 包含未签名 CEP 扩展。`-EnableUnsignedExtensions` 会优先读取 `%TEMP%\CEP*-AEFT.log` 中的 `PlugPlug version`，并结合常见 AE 安装位置检测 runtime，然后在当前 Windows 用户的注册表中为对应 runtime 设置字符串值 `PlayerDebugMode="1"`（AE 2024 对应 CSXS 11，AE 2025/2026 对应 CSXS 12）。这允许这些 runtime 加载未签名扩展，也会降低同一 runtime 下其他 CEP 扩展的签名校验。只在信任这台电脑上将加载的扩展时启用。
+
+如果 AE 安装在自定义位置导致自动检测不到，可手动指定 runtime：AE 2024 使用 `-RuntimeVersion 11`，AE 2025 使用 `-RuntimeVersion 12`。例如：
+
+   .\install.ps1 -EnableUnsignedExtensions -RuntimeVersion 12
+
+排查时可临时将 `HKCU\Software\Adobe\CSXS.<版本>\LogLevel` 设为字符串 `6`，重启 AE 后查看 `%TEMP%\CEP*-AEFT.log`。确认问题后建议恢复为 `1`。manifest 中只保留一条 `RequiredRuntime`，不能为同一个 `Name="CSXS"` 添加多条条目。
+
+安装目录
+%APPDATA%\Adobe\CEP\extensions\com.example.ae.fn.template-manager
+
+安装脚本仅覆盖复制本扩展的文件，不会更改 AE 项目，也不会修改 NAS 或模板文件。
+
+卸载
+关闭 After Effects 后，手动删除上面的扩展目录即可。卸载不会关闭 PlayerDebugMode，因为该开关可能被其他 CEP 扩展使用；如需恢复签名校验，请在注册表编辑器中删除：
+对应版本的 `HKEY_CURRENT_USER\Software\Adobe\CSXS.<版本>\PlayerDebugMode`。AE 2024 为 CSXS.11，AE 2025 为 CSXS.12。
+
+正式签名分发
+对外分发应使用团队受控证书和 Adobe ZXPSignCmd 生成签名 ZXP，避免要求用户开启 PlayerDebugMode。当前包未包含任何签名证书或私钥。

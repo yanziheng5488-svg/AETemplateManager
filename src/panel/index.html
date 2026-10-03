@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AE 模板管理</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span class="brand-mark">FN</span><div><strong>模板库</strong><small id="library-status">尚未配置</small></div></div>
+    <div class="toolbar">
+      <button id="refresh-button" class="icon-button" type="button" title="刷新模板库" aria-label="刷新模板库">↻</button>
+      <button id="settings-button" class="icon-button" type="button" title="设置" aria-label="设置">⚙</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="controls">
+      <label class="search-field"><span aria-hidden="true">⌕</span><input id="search-input" type="search" placeholder="搜索模板名称" autocomplete="off"></label>
+      <div class="filter-row">
+        <label class="select-wrap"><span>分类</span><select id="category-select"><option value="">全部分类</option></select></label>
+        <button id="favorite-filter" type="button" class="filter-button" aria-pressed="false">☆ 收藏</button>
+      </div>
+    </section>
+
+    <div class="result-heading"><strong id="result-count">0 个模板</strong><span id="scan-time"></span></div>
+    <section id="template-list" class="template-grid" aria-live="polite"></section>
+    <div id="empty-state" class="empty-state">
+      <span class="empty-icon">▧</span>
+      <strong id="empty-title">配置模板库</strong>
+      <p id="empty-description">选择飞牛 NAS 映射盘中的模板目录开始浏览。</p>
+      <button id="empty-settings-button" class="primary-button" type="button">打开设置</button>
+    </div>
+  </main>
+
+  <dialog id="settings-dialog" class="dialog">
+    <form id="settings-form" method="dialog">
+      <div class="dialog-heading"><div><h2>设置</h2><p>配置模板库和项目库路径</p></div><button class="icon-button dialog-close" type="button" data-close="settings-dialog" aria-label="关闭">×</button></div>
+      <label class="field-label" for="template-root-input">模板库根目录</label>
+      <div class="path-input"><input id="template-root-input" type="text" placeholder="例如 Z:\\AE模板库"><button type="button" class="secondary-button" data-pick="template-root-input">浏览</button></div>
+      <label class="field-label" for="project-root-input">项目库根目录</label>
+      <div class="path-input"><input id="project-root-input" type="text" placeholder="例如 D:\\项目库"><button type="button" class="secondary-button" data-pick="project-root-input">浏览</button></div>
+      <div class="dialog-actions"><button class="secondary-button" type="button" data-close="settings-dialog">取消</button><button class="primary-button" type="submit">保存设置</button></div>
+    </form>
+  </dialog>
+
+  <dialog id="apply-dialog" class="dialog">
+    <form id="apply-form" method="dialog">
+      <div class="dialog-heading"><div><h2>应用模板</h2><p id="apply-template-name"></p></div><button class="icon-button dialog-close" type="button" data-close="apply-dialog" aria-label="关闭">×</button></div>
+      <label class="field-label" for="project-select">目标项目</label>
+      <select id="project-select" class="full-select"><option value="">选择项目文件夹</option></select>
+      <div id="aep-choice-wrap" class="hidden">
+        <label class="field-label" for="aep-select">主 AEP 文件</label>
+        <select id="aep-select" class="full-select"></select>
+      </div>
+      <label class="field-label" for="target-name-input">复制后的文件夹名称</label>
+      <input id="target-name-input" class="text-input" type="text" required autocomplete="off" placeholder="请输入名称">
+      <p class="field-hint">仅用于项目中的文件夹名称，AEP 文件名保持不变。</p>
+      <div id="copy-progress-wrap" class="progress-wrap hidden"><div class="progress-track"><span id="copy-progress"></span></div><div class="progress-meta"><span id="copy-progress-label">准备复制</span><button id="cancel-copy-button" type="button" class="text-button">取消</button></div></div>
+      <p id="apply-error" class="error-message hidden" role="alert"></p>
+      <div id="recovery-actions" class="recovery-actions hidden"><button id="retry-copy-button" type="button" class="secondary-button">重新复制</button><button id="clean-temp-button" type="button" class="text-button danger-text">清理临时文件</button></div>
+      <div class="dialog-actions" id="apply-actions"><button class="secondary-button" type="button" data-close="apply-dialog">取消</button><button id="apply-submit-button" class="primary-button" type="submit">复制并打开</button></div>
+    </form>
+  </dialog>
+
+  <dialog id="preview-dialog" class="dialog preview-dialog">
+    <form method="dialog">
+      <div class="dialog-heading"><div><h2 id="preview-dialog-title">预览</h2><p>预览视频和封面设置</p></div><button class="icon-button dialog-close" type="button" data-close="preview-dialog" aria-label="关闭">×</button></div>
+      <video id="preview-video" class="preview-player" controls playsinline></video>
+      <div class="dialog-actions preview-actions"><button id="set-cover-button" class="primary-button" type="button">使用当前帧作为封面</button><button class="secondary-button" type="button" data-close="preview-dialog">关闭</button></div>
+      <p id="preview-error" class="error-message hidden" role="alert"></p>
+    </form>
+  </dialog>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="../../lib/CSInterface.js"></script>
+  <script>
+    // CEP 11/AE 2024 exposes Node through cep_node; window.require is only a legacy fallback.
+    window.nodeRequire = (window.cep_node && window.cep_node.require) || window.require;
+    window.nodeProcess = window.process || (window.cep_node && window.cep_node.process);
+  </script>
+  <script src="app.js"></script>
+</body>
+</html>

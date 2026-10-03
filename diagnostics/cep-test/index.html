@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>AE CEP Test Panel</title>
+  <style>
+    body { margin: 0; padding: 18px; color: #f1f1f1; background: #252525; font: 14px Arial, sans-serif; }
+    h1 { margin: 0 0 14px; font-size: 18px; }
+    p { margin: 8px 0; }
+    code { color: #9cdcfe; word-break: break-all; }
+    .ok { color: #77dd77; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <h1>AE CEP Test Panel</h1>
+  <p class="ok">CEP HTML panel loaded successfully.</p>
+  <p>Host: <code id="host">checking...</code></p>
+  <p>CEP API: <code id="cep">checking...</code></p>
+  <p>User agent: <code id="ua"></code></p>
+  <script>
+    document.getElementById('host').textContent = location.host || '(local extension)';
+    document.getElementById('cep').textContent = window.__adobe_cep__ ? 'available' : 'missing';
+    document.getElementById('ua').textContent = navigator.userAgent;
+  </script>
+</body>
+</html>
