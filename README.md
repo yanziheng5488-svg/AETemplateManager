@@ -2,6 +2,15 @@
 
 Windows 优先的 After Effects CEP 面板，用于浏览映射网络驱动器上的 AE 模板，把模板复制到项目库并打开选中的 AEP。
 
+## 产品介绍
+
+<video controls preload="metadata" width="800">
+  <source src="https://raw.githubusercontent.com/yanziheng5488-svg/AETemplateManager/main/assets/ae-fn-template-manager-intro.mp4" type="video/mp4">
+  您的浏览器不支持视频播放。请[下载产品介绍视频](assets/ae-fn-template-manager-intro.mp4)。
+</video>
+
+[下载产品介绍视频](assets/ae-fn-template-manager-intro.mp4)
+
 ## 当前实现
 
 - AE 2024+（CEP 宿主 `AEFT`，最低版本 24.0；AE 2024 使用 CSXS 11，AE 2025/2026 使用 CSXS 12）。
