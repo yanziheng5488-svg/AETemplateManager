@@ -8,6 +8,10 @@
 
 [下载完整产品介绍视频（MP4）](assets/ae-fn-template-manager-intro.mp4)
 
+<iframe src="https://player.bilibili.com/player.html?isOutside=true&aid=117376272042401&bvid=BV132Hv65EfP&cid=42424733243&p=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" width="800" height="450"></iframe>
+
+[在哔哩哔哩观看产品介绍](https://www.bilibili.com/video/BV132Hv65EfP/)
+
 ## 它能做什么
 
 ### 集中管理 AE 模板
