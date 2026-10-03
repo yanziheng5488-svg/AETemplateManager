@@ -1,4 +1,4 @@
-param(
+﻿param(
   [string]$OutputPath = "",
   [string]$ZXPSignCmd = "",
   [string]$Certificate = "",
